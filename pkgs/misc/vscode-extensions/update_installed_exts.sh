@@ -24,7 +24,13 @@ function get_vsixpkg() {
     URL="https://$1.gallery.vsassets.io/_apis/public/gallery/publisher/$1/extension/$2/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage"
 
     # Quietly but delicately curl down the file, blowing up at the first sign of trouble.
+    set +e
     curl --silent --show-error --fail -X GET -o "$EXTTMP/$N.zip" "$URL"
+    if test $? -ne 0; then
+        fail "Error: $N $URL"
+    fi
+    set -e
+
     # Unpack the file we need to stdout then pull out the version
     VER=$(jq -r '.version' <(unzip -qc "$EXTTMP/$N.zip" "extension/package.json"))
     # Calculate the SHA
@@ -47,8 +53,10 @@ EOF
 # See if we can find our `code` binary somewhere.
 if [ $# -ne 0 ]; then
     CODE=$1
-else
+elif $(command -v code); then
     CODE=$(command -v code)
+else
+    CODE=$(command -v code-insiders)
 fi
 
 if [ -z "$CODE" ]; then
