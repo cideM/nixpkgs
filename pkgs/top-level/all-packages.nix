@@ -21713,6 +21713,8 @@ in
     });
   android-studio = androidStudioPackages.stable;
 
+  angelfish = libsForQt5.callPackage ../applications/networking/browsers/angelfish { };
+
   animbar = callPackage ../applications/graphics/animbar { };
 
   antfs-cli = callPackage ../applications/misc/antfs-cli {};
