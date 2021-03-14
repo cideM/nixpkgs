@@ -12403,6 +12403,8 @@ in
 
   cookiecutter = with python3Packages; toPythonApplication cookiecutter;
 
+  corrosion = callPackage ../development/tools/build-managers/corrosion { };
+
   corundum = callPackage ../development/tools/corundum { };
 
   confluent-platform = callPackage ../servers/confluent-platform {};
