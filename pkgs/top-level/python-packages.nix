@@ -2250,6 +2250,8 @@ in {
 
   executor = callPackage ../development/python-modules/executor { };
 
+  exif = callPackage ../development/python-modules/exif { };
+
   exifread = callPackage ../development/python-modules/exifread { };
 
   expiringdict = callPackage ../development/python-modules/expiringdict { };
