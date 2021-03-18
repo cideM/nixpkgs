@@ -2256,6 +2256,10 @@ in
     ruby = ruby_2_7;
   };
 
+  discourse-mail-receiver = callPackage ../servers/web-apps/discourse/mail_receiver {
+    ruby = ruby_2_7;
+  };
+
   discocss = callPackage ../tools/misc/discocss { };
 
   disfetch = callPackage ../tools/misc/disfetch { };
