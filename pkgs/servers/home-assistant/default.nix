@@ -217,6 +217,7 @@ in with py.pkgs; buildPythonApplication rec {
     "flux"
     "folder"
     "folder_watcher"
+    "freebox"
     "fritzbox"
     "fritzbox_callmonitor"
     "frontend"
