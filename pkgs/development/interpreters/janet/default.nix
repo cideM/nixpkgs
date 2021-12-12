@@ -2,23 +2,18 @@
 
 stdenv.mkDerivation rec {
   pname = "janet";
-  version = "1.16.1";
+  version = "1.19.2";
 
   src = fetchFromGitHub {
     owner = "janet-lang";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-TzJbHmHIySlf3asQ02HOdehMR+s0KkPifBiaQ4FvFCg=";
+    sha256 = "0waj22rzxmc0yx1yr0pzw9lwp6my5abfpfi6vq932bmli8y9prpd";
   };
 
   # we don't have /usr/bin/env in the sandbox, so substitute for a proper,
   # absolute path to janet
   postPatch = ''
-    substituteInPlace jpm \
-      --replace '/usr/bin/env janet' $out/bin/janet \
-      --replace /usr/local/lib/janet $out/lib \
-      --replace /usr/local           $out
-
     substituteInPlace janet.1 \
       --replace /usr/local/lib/janet $out/lib
   '';
@@ -26,6 +21,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ meson ninja ];
 
   mesonFlags = [ "-Dgit_hash=release" ];
+
+  patches = lib.optionals stdenv.isDarwin ./darwin-remove-net-test.patch;
 
   doCheck = true;
 
